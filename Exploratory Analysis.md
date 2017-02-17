@@ -32,7 +32,10 @@ Download [Python](https://www.python.org/downloads/) and [Pip](https://pip.pypa.
 Let's install the modules we'll need for this tutorial. Open up your terminal and enter the following commands to install the needed python modules: 
 
 ```
-pip3 install 
+pip3 install scipy
+pip3 install matplotlib
+pip3 install numpy
+pip3 install plotly
 ```
 
 ### 0.2 R & R Studio
@@ -204,7 +207,7 @@ Box-whisker plots are a method to visualize the level and spread of the data, ak
 
 Here, we'll review the basics of a box-and-whisker plot:
 
-![alt text](https://github.com/ByteAcademyCo/exp-analysis/blob/master/box.png "Logo Title Text 1")
+![alt text](https://github.com/ByteAcademyCo/exp-analysis/blob/master/boxplot2.png?raw=true "Logo Title Text 1")
 
 A box-whisker plot may be created with the boxplot function in the matplotlib package as follows
 
@@ -299,6 +302,93 @@ Plot(iris, 'Petal.Length')
 ```
 
 ![alt text](https://github.com/ByteAcademyCo/exp-analysis/blob/master/xda.png?raw=true "Logo Title Text 1")
+
+## 4.0 Heatmaps
+
+A heat map is a two-dimensional representation of data in which values are represented by colors.
+
+### 4.1 Plotly
+
+Plotly is an online analytics and data visualization tool that provides online graphing, analytics, and statistics tools. In python, you can use its library to visualize heatmaps!
+
+``` python
+import plotly.plotly as py
+import plotly.graph_objs as go
+```
+
+We'll begin with a basic example of a heatmap. Using the heatmap class, we:
+
+``` python
+data = [
+    go.Heatmap(
+        z=[[1, 20, 30],
+           [20, 1, 60],
+           [30, 60, 1]]
+    )
+]
+py.plot(data, filename='basic-heatmap')
+```
+
+![alt text](heatmap1 "Logo Title Text 1")
+
+
+We can add categorical axis labels, like the following: 
+
+``` python
+data = [
+    go.Heatmap(
+        z=[[1, 20, 30, 50, 1], [20, 1, 60, 80, 30], [30, 60, 1, -10, 20]],
+        x=['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+        y=['Morning', 'Afternoon', 'Evening']
+    )
+]
+py.plot(data, filename='labelled-heatmap')
+```
+![alt text](heatmap1 "Logo Title Text 1")
+
+
+### 4.2 Seaborn
+
+Seaborn is yet another Python module available for making heatmap visualizations:
+
+``` python
+import matplotlib.pyplot as plt
+import numpy as np; np.random.seed(0)
+import seaborn as sns; sns.set()
+```
+
+Next, we create random data and put it to a heatmap: 
+
+``` python
+uniform_data = np.random.rand(10, 12)
+ax = sns.heatmap(uniform_data)
+plt.show()
+```
+
+![alt text](heatmap1 "Logo Title Text 1")
+
+Similar to plotly, we can plot a dataframe with meaningful row and column labels:
+
+``` python
+flights = sns.load_dataset("flights")
+flights = flights.pivot("month", "year", "passengers")
+ax = sns.heatmap(flights)
+plt.show()
+```
+![alt text](heatmap1 "Logo Title Text 1")
+
+Furthermore, we can go a step further and annotate each cell with the numeric value using integer formatting:
+
+
+``` python
+corr = np.corrcoef(np.random.randn(10, 200))
+mask = np.zeros_like(corr)
+mask[np.triu_indices_from(mask)] = True
+with sns.axes_style("white"):
+	ax = sns.heatmap(corr, mask=mask, vmax=.3, square=True)
+plt.show()
+```
+![alt text](heatmap1 "Logo Title Text 1")
 
 ## 4.0 Final Words
 
