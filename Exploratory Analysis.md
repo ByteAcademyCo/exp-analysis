@@ -111,6 +111,7 @@ result of fsolve: [ 0.69314718]
 ```
 
 Now, we know that the actual root is equal to `x = -ln(0.5)`. So let's calculate that and compare the two values:
+
 ``` python
 print('f(x) at xzero:   ', f(xzero))
 print('exact value of xzero:', -np.log(0.5))
@@ -125,9 +126,9 @@ Notice that the two results are incredibly close!
 
 ### 2.2 Cumulative Density Function
 
-Recall that the Cumulative Density Function provides us with the probability 
+Recall that the Cumulative Density Function provides us with the probability that x takes on a value less than x. 
 
-The Cumulative Density Distribution F(x)F(x) of the Normal distribution is given by:
+The Cumulative Density Distribution F(x) of the Normal distribution is given by:
 
 ![alt text](https://github.com/lesley2958/stats-programmers/blob/master/normal%20cdf.png?raw=true "Logo Title Text 1")
 
@@ -135,9 +136,67 @@ Now, using the scipy module, we can create the CDF for a Normal Distribution:
 
 ``` python
 from scipy.special import erf
-
+```
 where &mu; is the mean, &sigma; is the standard deviation, and `erf` is the error function. 
 
 
+### 2.3 Continuous Random Variables
 
+The most common probability distribution is the Normal distribution. Random numbers from a Normal distribution may be generated with the `standard_normal` function in the random subpackage of numpy. 
+
+The numbers are drawn from a "standard" Normal distribution, which means a Normal distribution with mean 0 and standard deviation 1. The mean and standard deviation of a dataset can be computed with the functions `mean` and `std` of the numpy package.
+
+So let's begin by importing the needed libraries: 
+
+``` python
+```
+
+This line of code gets us 100 random numbers in an array:
+``` python
+data = rnd.standard_normal(100)
+```
+
+Now let's check out the mean and standard deviation:
+``` python
+np.mean(data)
+np.std(data)
+```
+
+Note that the results aren't exactly 0 or 1 because they're only estimates of the true underlying mean and standard deviation.
+
+Now, let's try a modified example:
+``` python
+mu = 6.0
+sig = 2.0
+data = sig * rnd.standard_normal(100) + mu
+```
+
+Next, let's see how a histogram emulates the normal distribution:
+``` python
+from scipy.stats import norm
+a = plt.hist(data, bins=12, range=(0, 12), normed=True)
+x = np.linspace(0, 12, 100)
+y = norm.pdf(x, 6, 2) 
+plt.plot(x, y, 'r')
+plt.xlabel('bins')
+plt.ylabel('probability');
+```
+
+### 2.4 Box Whisker
+
+Box-whisker plots are a method to visualize the level and spread of the data. From a boxplot, you can see whether the data is symmetric or not, and how widely the data are spread. A box-whisker plot may be created with the boxplot function in the matplotlib package as follows
+
+``` python
+rnd.seed(10)
+data = 2 * rnd.standard_normal(500) + 10.0 
+a = plt.boxplot(data)
+```
+
+The blue box spans the IQR ranging from the lower quartile (25%) to the upper quartile (75%). The whiskers are the black lines that are connected to the 50% box with the blue dashed lines.
+
+
+
+## 5.0 Final Words
+
+### 5.1 Resources
 
