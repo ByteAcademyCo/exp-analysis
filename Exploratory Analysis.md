@@ -47,6 +47,8 @@ This will prompt a session in R! From here, you can install any needed packages.
 ```
 install.packages("mice")
 install.packages("VIM")
+install.packages(devtools)
+install_github("ujjwalkarn/xda")
 ```
 
 ### 0.3 Virtual Environment
@@ -195,6 +197,85 @@ a = plt.boxplot(data)
 The blue box spans the IQR ranging from the lower quartile (25%) to the upper quartile (75%). The whiskers are the black lines that are connected to the 50% box with the blue dashed lines.
 
 
+## 3.0 Exploratory Analysis with R
+
+### 3.1 xda
+
+This R package contains several tools to perform initial exploratory analysis on any input dataset. It includes custom functions for plotting the data as well as performing different kinds of analyses such as univariate, bivariate and multivariate investigation which is the first step of any predictive modeling pipeline
+
+#### 3.1.1 Functions
+
+The functions in this package are as follows:
+
+- `numSummary(mydata)` automatically detects all the numeric columns in the dataframe mydata and outputs their summary statistics.
+- `charSummary(mydata)` automatically detects all character columns in the dataframe mydata and outputs their summary statistics.
+- `Plot(mydata, dep.var)` plots all independent variables in the dataframe mydata against the dependant variable specified by the dep.var parameter.
+- `removeSpecial(mydata, vec)` replaces all special characters in the dataframe mydata with NA.
+- `bivariate(mydata, dep.var, indep.var)` performs bivariate analysis between dependent variable dep.var and independent variable indep.var in the dataframe mydata.
+
+#### 3.1.2 Example 
+
+Using the built-in iris dataset, we'll use the functions above.
+
+``` R
+library(xda)
+```
+
+So we begin with summary statistics:
+
+``` R
+numSummary(iris)
+charSummary(iris)
+```
+
+And get:
+
+``` bash
+               n mean    sd max min range nunique nzeros  iqr lowerbound
+Sepal.Length 150 5.84 0.828 7.9 4.3   3.6      35      0 1.30       3.15
+Sepal.Width  150 3.06 0.436 4.4 2.0   2.4      23      0 0.50       2.05
+Petal.Length 150 3.76 1.765 6.9 1.0   5.9      43      0 3.55      -3.72
+Petal.Width  150 1.20 0.762 2.5 0.1   2.4      22      0 1.50      -1.95
+             upperbound noutlier kurtosis skewness mode miss miss%   1%   5%
+Sepal.Length       8.35        0   -0.606    0.309  5.0    0     0 4.40 4.60
+Sepal.Width        4.05        4    0.139    0.313  3.0    0     0 2.20 2.34
+Petal.Length      10.42        0   -1.417   -0.269  1.4    0     0 1.15 1.30
+Petal.Width        4.05        0   -1.358   -0.101  0.2    0     0 0.10 0.20
+             25%  50% 75%  95%  99%
+Sepal.Length 5.1 5.80 6.4 7.25 7.70
+Sepal.Width  2.8 3.00 3.3 3.80 4.15
+Petal.Length 1.6 4.35 5.1 6.10 6.70
+Petal.Width  0.3 1.30 1.8 2.30 2.50
+```
+
+as well as: 
+
+``` R
+          n miss miss% unique                       top5levels:count
+Species 150    0     0      3 setosa:50, versicolor:50, virginica:50
+```
+
+To perform bivariate analysis between 'Species' and 'Sepal.Length' in the iris dataset, we do the following:
+
+``` R
+bivariate(iris,'Species','Sepal.Length')
+```
+
+``` bash
+  bin_Sepal.Length setosa versicolor virginica
+1        (4.3,5.2]     39          5         1
+2        (5.2,6.1]     11         29        10
+3          (6.1,7]      0         16        27
+4          (7,7.9]      0          0        12
+```
+
+And lastly, let's get some exploratory plot graphs:
+
+``` R
+Plot(iris, 'Petal.Length')
+```
+
+![alt text](rplot "Logo Title Text 1")
 
 ## 5.0 Final Words
 
