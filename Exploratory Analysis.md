@@ -10,13 +10,16 @@ Brought to you by [Lesley Cordero](http://www.columbia.edu/~lc2958), [Byte Acade
 	+ [0.2 R & R Studio](#02-r--r-studio)
 	+ [0.3 Other](#03-other)
 - [1.0 Introduction](#10-introduction)
-- [2.0 Data Normalization](#20-data-normalization)
-- [3.0 Strings](#30-strings)
-- [4.0 Missing Values](#40-missing-values)
-- [5.0 Outlier Detection](#50-outlier-detection)
+	+ [1.1 What is Exploratory Data Analysis?](#11-what-is-exploratory-data-analysis)
+	+ [1.2 EDA Techniques](#12-eda-techniques)
+- [2.0 Exploratory Computing](#20-exploratory-computing)
+	+ [2.1 Finding the Zero](#21-finding-the-zero)
+	+ [2.2 Cumulative Density Function](#22-cumulative-density-function)
+	+ [2.3 Continuous Random Variables](#23-continuous-random-variables)
+	+ [2.4 Box Whisker](#24-box-whisker)
+- [3.0 Exploratory Analysis with R](#30-exploratory-analysis-with-r)
 - [6.0 Final Words](#60-final-words)
 	+ [6.2 Mini Courses](#62-mini-courses)
-
 
 ## 0.0 Setup
 
@@ -95,6 +98,7 @@ Finding the zero of a function is a common task in exploratory computing. The va
 Consider the function f(x) = 0.5−e<sup>−x</sup>. Let's find the root for this. First, we need to write a Python function for `f(x)`.
 
 ``` python
+import numpy as np
 def f(x):
     return(0.5 - np.exp(-x))
 ```
@@ -138,6 +142,12 @@ Now, using the scipy module, we can create the CDF for a Normal Distribution:
 
 ``` python
 from scipy.special import erf
+
+def StandardNormalCdf(x):
+    return (erf(x / root2) + 1) / 2)
+
+def NormalCdf(x, mu=0, sigma=1):
+    return(StandardNormalCdf(float(x - mu) / sigma))
 ```
 where &mu; is the mean, &sigma; is the standard deviation, and `erf` is the error function. 
 
@@ -151,6 +161,9 @@ The numbers are drawn from a "standard" Normal distribution, which means a Norma
 So let's begin by importing the needed libraries: 
 
 ``` python
+import numpy as np
+import matplotlib.pyplot as plt
+import numpy.random as rnd
 ```
 
 This line of code gets us 100 random numbers in an array:
@@ -181,20 +194,30 @@ x = np.linspace(0, 12, 100)
 y = norm.pdf(x, 6, 2) 
 plt.plot(x, y, 'r')
 plt.xlabel('bins')
-plt.ylabel('probability');
+plt.ylabel('probability')
+plt.show()
 ```
 
 ### 2.4 Box Whisker
 
-Box-whisker plots are a method to visualize the level and spread of the data. From a boxplot, you can see whether the data is symmetric or not, and how widely the data are spread. A box-whisker plot may be created with the boxplot function in the matplotlib package as follows
+Box-whisker plots are a method to visualize the level and spread of the data, aka the distribution. From a boxplot, you can see whether the data is symmetric or not, and how widely the data are spread. 
+
+Here, we'll review the basics of a box-and-whisker plot:
+
+![alt text](box "Logo Title Text 1")
+
+A box-whisker plot may be created with the boxplot function in the matplotlib package as follows
 
 ``` python
 rnd.seed(10)
 data = 2 * rnd.standard_normal(500) + 10.0 
 a = plt.boxplot(data)
+plt.show()
 ```
 
 The blue box spans the IQR ranging from the lower quartile (25%) to the upper quartile (75%). The whiskers are the black lines that are connected to the 50% box with the blue dashed lines.
+
+![alt text](box "Logo Title Text 1")
 
 
 ## 3.0 Exploratory Analysis with R
@@ -255,7 +278,7 @@ as well as:
 Species 150    0     0      3 setosa:50, versicolor:50, virginica:50
 ```
 
-To perform bivariate analysis between 'Species' and 'Sepal.Length' in the iris dataset, we do the following:
+Recall, bi-variate Analysis finds out the relationship between two variables. To perform bivariate analysis between 'Species' and 'Sepal.Length' in the iris dataset, we do the following:
 
 ``` R
 bivariate(iris,'Species','Sepal.Length')
@@ -275,7 +298,7 @@ And lastly, let's get some exploratory plot graphs:
 Plot(iris, 'Petal.Length')
 ```
 
-![alt text](rplot "Logo Title Text 1")
+![alt text](https://github.com/ByteAcademyCo/exp-analysis/blob/master/xda.png?raw=true "Logo Title Text 1")
 
 ## 5.0 Final Words
 
