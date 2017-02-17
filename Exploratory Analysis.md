@@ -204,7 +204,7 @@ Box-whisker plots are a method to visualize the level and spread of the data, ak
 
 Here, we'll review the basics of a box-and-whisker plot:
 
-![alt text](box "Logo Title Text 1")
+![alt text](https://github.com/ByteAcademyCo/exp-analysis/blob/master/box.png "Logo Title Text 1")
 
 A box-whisker plot may be created with the boxplot function in the matplotlib package as follows
 
@@ -217,7 +217,7 @@ plt.show()
 
 The blue box spans the IQR ranging from the lower quartile (25%) to the upper quartile (75%). The whiskers are the black lines that are connected to the 50% box with the blue dashed lines.
 
-![alt text](box "Logo Title Text 1")
+![alt text](https://github.com/ByteAcademyCo/exp-analysis/blob/master/box.png?raw=true "Logo Title Text 1")
 
 
 ## 3.0 Exploratory Analysis with R
@@ -300,7 +300,7 @@ Plot(iris, 'Petal.Length')
 
 ![alt text](https://github.com/ByteAcademyCo/exp-analysis/blob/master/xda.png?raw=true "Logo Title Text 1")
 
-## 5.0 Final Words
+## 4.0 Final Words
 
-### 5.1 Resources
+### 4.1 Resources
 
