@@ -1,7 +1,7 @@
 Exploratory Analysis with Python & R
 ==================
 
-Brought to you by [Lesley Cordero](http://www.columbia.edu/~lc2958), [Byte Academy](byteacademy.co) and [ADI](https://adicu.com)
+Brought to you by [Lesley Cordero](http://www.columbia.edu/~lc2958), [Byte Academy](byteacademy.co), and [ADI](https://adicu.com)
 
 ## Table of Contents
 
@@ -18,8 +18,14 @@ Brought to you by [Lesley Cordero](http://www.columbia.edu/~lc2958), [Byte Acade
 	+ [2.3 Continuous Random Variables](#23-continuous-random-variables)
 	+ [2.4 Box Whisker](#24-box-whisker)
 - [3.0 Exploratory Analysis with R](#30-exploratory-analysis-with-r)
-- [6.0 Final Words](#60-final-words)
-	+ [6.2 Mini Courses](#62-mini-courses)
+	+ [3.1 xda](#31-xda)
+		* [3.1.1 Functions](#311-functions)
+		* [3.1.2 Example](#312-example)
+- [4.0 Heatmaps](#40-heatmaps)
+	+ [4.1 Plotly](#41-plotly)
+	+ [4.2 Seaborn](#42-seaborn)
+- [5.0 Final Words](#60-final-words)
+	+ [5.2 Mini Courses](#62-mini-courses)
 
 ## 0.0 Setup
 
@@ -37,6 +43,16 @@ pip3 install matplotlib
 pip3 install numpy
 pip3 install plotly
 ```
+
+data = [
+    go.Heatmap(
+        z=[[1, 30, 30],
+           [20, 30, 60],
+           [30, 60, 1],
+           [1,1,1]]
+    )
+]
+py.plot(data, filename='basic-heatmap')
 
 ### 0.2 R & R Studio
 
@@ -329,8 +345,6 @@ data = [
 py.plot(data, filename='basic-heatmap')
 ```
 
-![alt text](heatmap1 "Logo Title Text 1")
-
 
 We can add categorical axis labels, like the following: 
 
@@ -344,7 +358,6 @@ data = [
 ]
 py.plot(data, filename='labelled-heatmap')
 ```
-![alt text](heatmap1 "Logo Title Text 1")
 
 
 ### 4.2 Seaborn
@@ -365,7 +378,7 @@ ax = sns.heatmap(uniform_data)
 plt.show()
 ```
 
-![alt text](heatmap1 "Logo Title Text 1")
+![alt text](https://github.com/ByteAcademyCo/exp-analysis/blob/master/heatmap1.png?raw=true "Logo Title Text 1")
 
 Similar to plotly, we can plot a dataframe with meaningful row and column labels:
 
@@ -375,10 +388,17 @@ flights = flights.pivot("month", "year", "passengers")
 ax = sns.heatmap(flights)
 plt.show()
 ```
-![alt text](heatmap1 "Logo Title Text 1")
+![alt text](https://github.com/ByteAcademyCo/exp-analysis/blob/master/heatmap2.png?raw=true "Logo Title Text 1")
 
 Furthermore, we can go a step further and annotate each cell with the numeric value using integer formatting:
 
+``` python
+ax = sns.heatmap(flights, annot=True, fmt="d")
+```
+
+![alt text](https://github.com/ByteAcademyCo/exp-analysis/blob/master/heatmap3.png?raw=true "Logo Title Text 1")
+
+Lastly, we can use a mask to plot only part of a matrix:
 
 ``` python
 corr = np.corrcoef(np.random.randn(10, 200))
@@ -388,9 +408,10 @@ with sns.axes_style("white"):
 	ax = sns.heatmap(corr, mask=mask, vmax=.3, square=True)
 plt.show()
 ```
-![alt text](heatmap1 "Logo Title Text 1")
+![alt text](https://github.com/ByteAcademyCo/exp-analysis/blob/master/heatmap4.png?raw=true "Logo Title Text 1")
 
-## 4.0 Final Words
 
-### 4.1 Resources
+## 5.0 Final Words
+
+### 5.1 Resources
 
