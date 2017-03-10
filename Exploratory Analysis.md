@@ -44,15 +44,6 @@ pip3 install numpy
 pip3 install plotly
 ```
 
-data = [
-    go.Heatmap(
-        z=[[1, 30, 30],
-           [20, 30, 60],
-           [30, 60, 1],
-           [1,1,1]]
-    )
-]
-py.plot(data, filename='basic-heatmap')
 
 ### 0.2 R & R Studio
 
