@@ -109,8 +109,7 @@ Consider the function f(x) = 0.5−e<sup>−x</sup>. Let's find the root for thi
 
 ``` python
 import numpy as np
-def f(x):
-    return(0.5 - np.exp(-x))
+f = lambda x: 0.5 - np.exp(-x))
 ```
 
 We will use the method fsolve to find the zero of a function. `fsolve` is part of the `scipy.optimize` package. fsolve takes two arguments: the function and a starting value for the search.
@@ -154,7 +153,7 @@ Now, using the scipy module, we can create the CDF for a Normal Distribution:
 from scipy.special import erf
 
 def StandardNormalCdf(x):
-    return (erf(x / root2) + 1) / 2)
+    return((erf(x / root2) + 1) / 2)
 
 def NormalCdf(x, mu=0, sigma=1):
     return(StandardNormalCdf(float(x - mu) / sigma))
