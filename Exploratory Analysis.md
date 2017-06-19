@@ -109,7 +109,7 @@ Consider the function f(x) = 0.5−e<sup>−x</sup>. Let's find the root for thi
 
 ``` python
 import numpy as np
-f = lambda x: 0.5 - np.exp(-x))
+f = lambda x: 0.5 - np.exp(-x)
 ```
 
 We will use the method fsolve to find the zero of a function. `fsolve` is part of the `scipy.optimize` package. fsolve takes two arguments: the function and a starting value for the search.
@@ -384,6 +384,7 @@ Furthermore, we can go a step further and annotate each cell with the numeric va
 
 ``` python
 ax = sns.heatmap(flights, annot=True, fmt="d")
+plt.show()
 ```
 
 ![alt text](https://github.com/ByteAcademyCo/exp-analysis/blob/master/heatmap3.png?raw=true "Logo Title Text 1")
